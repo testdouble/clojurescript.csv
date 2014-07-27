@@ -26,7 +26,7 @@ A ClojureScript library for reading and writing comma separated values.
 
 ```
 (ns my.domain.core
-  (:require [testdouble.cljs.csv :as :csv]))
+  (:require [testdouble.cljs.csv :as csv]))
 
 (csv/write-csv [[1 2 3] [4 5 6]])
 ```
