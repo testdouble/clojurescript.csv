@@ -1,4 +1,4 @@
-(defproject testdouble/clojurescript.csv "0.1.0-SNAPSHOT"
+(defproject testdouble/clojurescript.csv "0.1.0"
   :description "A ClojureScript library for reading and writing comma separated values"
   :url "https://github.com/testdouble/clojurescript.csv"
   :license {:name "Eclipse Public License"
