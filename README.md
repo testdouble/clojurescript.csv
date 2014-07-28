@@ -26,7 +26,17 @@ A ClojureScript library for reading and writing comma separated values.
 (ns my.domain.core
   (:require [testdouble.cljs.csv :as csv]))
 
+;; Basic usage
 (csv/write-csv [[1 2 3] [4 5 6]])
+;;=> "1,2,3\n4,5,6"
+
+;; Define your own separator
+(csv/write-csv [[1 2 3] [4 5 6]] :separator "|")
+;;=> "1|2|3\n4|5|6"
+
+;; Use either :lf (default) or :cr+lf as the newline character
+(csv/write-csv [[1 2 3] [4 5 6]] :newline :cr+lf)
+;;=> "1,2,3\r\n4,5,6"
 ```
 
 ## Development
