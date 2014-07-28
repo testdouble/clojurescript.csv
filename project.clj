@@ -25,4 +25,6 @@
                               "phantom-whitespace" ["phantomjs" :runner "target/cljs/whitespace.js"]
                               "phantom-simple" ["phantomjs" :runner "target/cljs/simple.js"]
                               "phantom-advanced" ["phantomjs" :runner "target/cljs/advanced.js"]}}
-  :aliases {"cljsrepl" ["exec" "-ep" "(cemerick.austin.repls/exec)"]})
+  :aliases {"cljsrepl" ["exec" "-ep" "(cemerick.austin.repls/exec)"]
+            "cleantest" ["do" "clean," "test," "cljsbuild" "test"]
+            "release" ["do" "clean," "deploy" "clojars"]})
