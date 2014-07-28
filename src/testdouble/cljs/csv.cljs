@@ -11,7 +11,7 @@
   "Writes data to String in CSV-format.
 
   Valid options are
-    :separator (default ,) "
+    :separator (default ,)"
   [data & options]
   (let [{:keys [separator] :or {separator ","}} options]
     (write-data data separator)))
