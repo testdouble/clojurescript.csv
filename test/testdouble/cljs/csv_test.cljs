@@ -9,4 +9,10 @@
       (is (= "1,2,3\n4,5,6" (csv/write-csv data))))
 
     (testing "user defined separator '|'"
-      (is (= "1|2|3\n4|5|6" (csv/write-csv data :separator "|"))))))
+      (is (= "1|2|3\n4|5|6" (csv/write-csv data :separator "|"))))
+
+    (testing "user defined newline ':cr+lf'"
+      (is (= "1,2,3\r\n4,5,6" (csv/write-csv data :newline :cr+lf))))
+
+    (testing "error when newline is not one of :lf OR :cr+lf"
+      (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
