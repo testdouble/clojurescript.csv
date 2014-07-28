@@ -7,7 +7,8 @@
                  [org.clojure/clojurescript "0.0-2277"]
                  [com.cemerick/clojurescript.test "0.3.1"]]
   :plugins [[lein-cljsbuild "1.0.3"]
-            [com.cemerick/clojurescript.test "0.3.1"]]
+            [com.cemerick/clojurescript.test "0.3.1"]
+            [com.cemerick/austin "0.1.4"]]
   :cljsbuild {:builds [{:source-paths ["src" "test"]
                         :compiler {:output-to "target/cljs/whitespace.js"
                                    :optimizations :whitespace
