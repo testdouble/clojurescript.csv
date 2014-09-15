@@ -25,6 +25,7 @@
                (accepts :lf or :cr+lf)
                (default :lf)"
 
+  {:arglists '([data] [data & options]) :added "0.1.0"}
   [data & options]
   (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
     (if-let [newline-char (get newlines newline)]
