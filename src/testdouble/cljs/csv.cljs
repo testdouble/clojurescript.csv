@@ -16,8 +16,15 @@
 (defn write-csv
   "Writes data to String in CSV-format.
 
-  Valid options are
-    :separator (default ,)"
+  Accepts the following options:
+
+  :separator - field seperator
+               (default ,)
+
+  :newline   - line seperator
+               (accepts :lf or :cr+lf)
+               (default :lf)"
+
   [data & options]
   (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
     (if-let [newline-char (get newlines newline)]
