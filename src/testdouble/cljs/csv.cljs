@@ -20,7 +20,7 @@
     :separator (default ,)"
   [data & options]
   (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
-    (if-let [newline-char (newlines newline)]
+    (if-let [newline-char (get newlines newline)]
       (write-data data
                   separator
                   newline-char)
