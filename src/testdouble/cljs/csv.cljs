@@ -1,11 +1,11 @@
 (ns testdouble.cljs.csv
   (:require [clojure.string :as str]))
 
-(defn- ->csv [data separator]
+(defn- seperate [data separator]
   (str/join separator data))
 
 (defn- write-data [data separator newline]
-  (str/join newline (map #(->csv % separator) data)))
+  (str/join newline (map #(seperate % separator) data)))
 
 (def ^:private newlines
   {:lf "\n" :cr+lf "\r\n"})
