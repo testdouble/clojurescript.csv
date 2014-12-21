@@ -7,6 +7,7 @@
                  [org.clojure/clojurescript "0.0-2505"]]
   :plugins [[lein-cljsbuild "1.0.3"]
             [com.cemerick/austin "0.1.4"]]
+  :hooks [leiningen.cljsbuild]
   :cljsbuild {:builds [{:id "whitespace"
                         :source-paths ["src" "test"]
                         :compiler {:output-to "target/js/whitespace.js"
@@ -28,5 +29,5 @@
                               ;; "phantom-advanced" ["phantomjs" "phantom/runner.js" "test-resources/html/advanced.html"]
                               }}
   :aliases {"cljsrepl" ["exec" "-ep" "(cemerick.austin.repls/exec)"]
-            "cleantest" ["do" "clean," "test," "cljsbuild" "test"]
+            "cleantest" ["do" "clean," "test"]
             "release" ["do" "clean," "deploy" "clojars"]})
