@@ -4,27 +4,29 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2411"]
-                 [com.cemerick/clojurescript.test "0.3.1"]]
+                 [org.clojure/clojurescript "0.0-2505"]]
   :plugins [[lein-cljsbuild "1.0.3"]
-            [com.cemerick/clojurescript.test "0.3.1" :scope "test"]
             [com.cemerick/austin "0.1.4"]]
-  :cljsbuild {:builds [{:source-paths ["src" "test"]
-                        :compiler {:output-to "target/cljs/whitespace.js"
+  :cljsbuild {:builds [{:id "whitespace"
+                        :source-paths ["src" "test"]
+                        :compiler {:output-to "target/js/whitespace.js"
                                    :optimizations :whitespace
                                    :pretty-print true}}
-                       {:source-paths ["src" "test"]
-                        :compiler {:output-to "target/cljs/simple.js"
+                       {:id "simple"
+                        :source-paths ["src" "test"]
+                        :compiler {:output-to "target/js/simple.js"
                                    :optimizations :simple
                                    :pretty-print true}}
-                       {:source-paths ["src" "test"]
-                        :compiler {:output-to "target/cljs/advanced.js"
+                       {:id "advanced"
+                        :source-paths ["src" "test"]
+                        :compiler {:output-to "target/js/advanced.js"
                                    :optimizations :advanced
-                                   :pretty-print true}}]
+                                   :pretty-print false}}]
               :test-commands {; PhantomJS tests
-                              "phantom-whitespace" ["phantomjs" :runner "target/cljs/whitespace.js"]
-                              "phantom-simple" ["phantomjs" :runner "target/cljs/simple.js"]
-                              "phantom-advanced" ["phantomjs" :runner "target/cljs/advanced.js"]}}
+                              "phantom-whitespace" ["phantomjs" "phantom/runner.js" "test-resources/html/whitespace.html"]
+                              "phantom-simple" ["phantomjs" "phantom/runner.js" "test-resources/html/simple.html"]
+                              ;; "phantom-advanced" ["phantomjs" "phantom/runner.js" "test-resources/html/advanced.html"]
+                              }}
   :aliases {"cljsrepl" ["exec" "-ep" "(cemerick.austin.repls/exec)"]
             "cleantest" ["do" "clean," "test," "cljsbuild" "test"]
             "release" ["do" "clean," "deploy" "clojars"]})

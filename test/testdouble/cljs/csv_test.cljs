@@ -1,7 +1,9 @@
 (ns testdouble.cljs.csv-test
   (:require [testdouble.cljs.csv :as csv]
-            [cemerick.cljs.test :as t])
-  (:require-macros [cemerick.cljs.test :refer [deftest testing is]]))
+            [cljs.test :as t])
+  (:require-macros [cljs.test :refer [deftest testing is run-tests]]))
+
+(enable-console-print!)
 
 (deftest write-csv-test
   (let [data [[1 2 3] [4 5 6]]]
@@ -16,3 +18,6 @@
 
     (testing "error when newline is not one of :lf OR :cr+lf"
       (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
+
+(defn ^:export run []
+  (run-tests))
