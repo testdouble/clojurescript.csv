@@ -44,7 +44,7 @@ A ClojureScript library for reading and writing comma separated values.
 Running the tests:
 
 ```
-$ lein cljsbuild test
+$ lein cleantest
 ```
 
 (assumes Leiningen 2.x)
