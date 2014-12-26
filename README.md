@@ -1,6 +1,6 @@
 # clojurescript.csv [![Build Status](https://travis-ci.org/testdouble/clojurescript.csv.png?branch=master)](https://travis-ci.org/testdouble/clojurescript.csv) [![Dependency Status](https://www.versioneye.com/user/projects/53d67fe23648f4a793000046/badge.svg)](https://www.versioneye.com/user/projects/53d67fe23648f4a793000046)
 
-A ClojureScript library for reading and writing comma separated values.
+A ClojureScript library for reading and writing comma (and other) separated values.
 
 ## Installation
 

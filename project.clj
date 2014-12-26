@@ -1,5 +1,5 @@
 (defproject testdouble/clojurescript.csv "0.2.0-SNAPSHOT"
-  :description "A ClojureScript library for reading and writing comma separated values"
+  :description "A ClojureScript library for reading and writing comma (and other) separated values."
   :url "https://github.com/testdouble/clojurescript.csv"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
