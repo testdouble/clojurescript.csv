@@ -1,3 +1,8 @@
+=== v0.2.0 / 2015-07-17
+
+* Enhancements
+  * User can pass :quote true to wrap each field in quotes
+
 === v0.1.1 / 2014-07-30
 
 * Bug Fixes
