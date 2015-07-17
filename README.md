@@ -37,6 +37,10 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 ;; Use either :lf (default) or :cr+lf as the newline character
 (csv/write-csv [[1 2 3] [4 5 6]] :newline :cr+lf)
 ;;=> "1,2,3\r\n4,5,6"
+
+;; Quote fields
+(csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]] :quote true)
+;;=> ""1,000","2","3"\n"4","5,000","6""
 ```
 
 ## Development

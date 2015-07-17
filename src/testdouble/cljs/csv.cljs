@@ -1,11 +1,16 @@
 (ns testdouble.cljs.csv
   (:require [clojure.string :as str]))
 
-(defn- seperate [data separator]
-  (str/join separator data))
+(defn- wrap-in-quotes [s]
+  (str "\"" s "\""))
 
-(defn- write-data [data separator newline]
-  (str/join newline (map #(seperate % separator) data)))
+(defn- seperate [data separator quote]
+  (if quote
+    (str/join separator (map wrap-in-quotes data))
+    (str/join separator data)))
+
+(defn- write-data [data separator newline quote]
+  (str/join newline (map #(seperate % separator quote) data)))
 
 (def ^:private newlines
   {:lf "\n" :cr+lf "\r\n"})
@@ -23,13 +28,17 @@
 
   :newline   - line seperator
                (accepts :lf or :cr+lf)
-               (default :lf)"
+               (default :lf)
+
+  :quote     - wrap in quotes
+               (default false)"
 
   {:arglists '([data] [data & options]) :added "0.1.0"}
   [data & options]
-  (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
+  (let [{:keys [separator newline quote] :or {separator "," newline :lf quote false}} options]
     (if-let [newline-char (get newlines newline)]
       (write-data data
                   separator
-                  newline-char)
+                  newline-char
+                  quote)
       (throw (js/Error. newline-error-message)))))
