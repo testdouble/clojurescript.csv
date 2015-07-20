@@ -43,7 +43,7 @@ page.open(url, function (status) {
     }, 0);
   }
 
-  console.log("Test succeeded.");
+  console.log("*** Test succeeded. ***\n");
   setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
     phantom.exit(0);
   }, 0);
