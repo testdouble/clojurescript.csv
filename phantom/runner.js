@@ -14,7 +14,7 @@ var url = system.args[1];
 console.log("Loading URL: " + url);
 
 page.open(url, function (status) {
-  if (status != "success") {
+  if (status !== "success") {
     console.log('Failed to open ' + url);
     setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
       phantom.exit(1);
