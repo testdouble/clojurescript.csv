@@ -5,8 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2511"]]
-  :plugins [[lein-cljsbuild "1.0.3"]
-            [com.cemerick/austin "0.1.4"]]
+  :plugins [[lein-cljsbuild "1.0.3"]]
   :hooks [leiningen.cljsbuild]
   :cljsbuild {:builds [{:id "whitespace"
                         :source-paths ["src" "test"]
@@ -28,6 +27,5 @@
                               "phantom-simple" ["phantomjs" "phantom/runner.js" "test-resources/html/simple.html"]
                               ;; "phantom-advanced" ["phantomjs" "phantom/runner.js" "test-resources/html/advanced.html"]
                               }}
-  :aliases {"cljsrepl" ["exec" "-ep" "(cemerick.austin.repls/exec)"]
-            "cleantest" ["do" "clean," "test"]
+  :aliases {"cleantest" ["do" "clean," "test"]
             "release" ["do" "clean," "deploy" "clojars"]})
