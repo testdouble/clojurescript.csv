@@ -23,25 +23,9 @@ page.open(url, function (status) {
 
   console.log("Running test.");
 
-  var result = page.evaluate(function() {
-    return testdouble.cljs.csv_test.run();
+  page.evaluate(function() {
+    testdouble.cljs.csv_test.run();
   });
-
-  var failures = result.arr[1];
-  if (failures !== 0) {
-    console.log("*** Test failed! ***");
-    setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
-      phantom.exit(1);
-    }, 0);
-  }
-
-  var errors = result.arr[3];
-  if (errors !== 0) {
-    console.log("*** Test errored! ***");
-    setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
-      phantom.exit(1);
-    }, 0);
-  }
 
   console.log("*** Test succeeded. ***\n");
   setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
