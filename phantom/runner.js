@@ -7,11 +7,10 @@ if (system.args.length !== 2) {
 }
 
 page.onConsoleMessage = function (message) {
-  console.log("Test console: " + message);
+  console.log(message);
 };
 
 var url = system.args[1];
-console.log("Loading URL: " + url);
 
 page.open(url, function (status) {
   if (status !== "success") {
@@ -21,13 +20,10 @@ page.open(url, function (status) {
     }, 0);
   }
 
-  console.log("Running test.");
-
   page.evaluate(function() {
     testdouble.cljs.csv_test.run();
   });
 
-  console.log("*** Test succeeded. ***\n");
   setTimeout(function() { // https://github.com/ariya/phantomjs/issues/12697
     phantom.exit(0);
   }, 0);
