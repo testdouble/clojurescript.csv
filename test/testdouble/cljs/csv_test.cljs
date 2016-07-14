@@ -16,6 +16,9 @@
     (testing "user defined newline ':cr+lf'"
       (is (= "1,2,3\r\n4,5,6" (csv/write-csv data :newline :cr+lf))))
 
+    (testing "user defined separator '|' and newline ':cr+lf"
+      (is (= "1|2|3\r\n4|5|6" (csv/write-csv data :separator "|" :newline :cr+lf))))
+
     (testing "quote each field"
       (is (= "\"1,000\",\"2\",\"3\"\n\"4\",\"5,000\",\"6\"" (csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]] :quote true))))
 
