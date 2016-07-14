@@ -5,9 +5,9 @@
   (str "\"" s "\""))
 
 (defn- seperate [data separator quote]
-  (if quote
-    (str/join separator (map wrap-in-quotes data))
-    (str/join separator data)))
+  (str/join separator
+            (cond->> data
+              quote (map wrap-in-quotes))))
 
 (defn- write-data [data separator newline quote]
   (str/join newline (map #(seperate % separator quote) data)))
