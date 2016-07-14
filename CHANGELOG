@@ -1,3 +1,8 @@
+=== v0.3.0
+
+* Breaking
+  * Option :quote is now :quote?
+
 === v0.2.0 / 2015-07-17
 
 * Enhancements
