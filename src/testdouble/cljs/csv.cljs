@@ -42,3 +42,10 @@
                   newline-char
                   quote?)
       (throw (js/Error. newline-error-message)))))
+
+(defn read-csv
+  "Reads data from String in CSV-format."
+  {:arglists '([data] [data & options]) :added "0.3.0"}
+  [data & options]
+  (map #(str/split % #",")
+       (str/split data #"\n")))

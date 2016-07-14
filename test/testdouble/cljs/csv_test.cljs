@@ -25,5 +25,10 @@
     (testing "error when newline is not one of :lf OR :cr+lf"
       (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
 
+(deftest read-csv-test
+  (let [data [["1" "2" "3"] ["4" "5" "6"]]]
+    (testing "default separator ','"
+      (is (= data (csv/read-csv "1,2,3\n4,5,6"))))))
+
 (defn ^:export run []
   (run-tests))
