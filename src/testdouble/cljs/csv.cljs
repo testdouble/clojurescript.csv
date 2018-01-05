@@ -43,21 +43,12 @@
                   quote?)
       (throw (js/Error. newline-error-message)))))
 
-(defn escape-regex-chars
-  "To make it easier, escapes everything that's not alphanumeric or whitespace,
-   which should be safe: http://eloquentjavascript.net/09_regexp.html"
-  [string]
-  (str/replace string #"[^\w\s]" "\\$&"))
-
-(defn str->pattern [string]
-  (-> string
-      escape-regex-chars
-      re-pattern))
-
 (defn read-csv
   "Reads data from String in CSV-format."
   {:arglists '([data] [data & options]) :added "0.3.0"}
   [data & options]
-  (let [{:keys [separator] :or {separator ","}} options]
-    (->> (str/split data #"\n")
-         (map #(str/split % (str->pattern separator))))))
+  (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
+    (if-let [newline-char (get newlines newline)]
+      (->> (str/split data newline-char)
+           (map #(str/split % separator)))
+      (throw (js/Error. newline-error-message)))))
