@@ -28,7 +28,10 @@
 (deftest read-csv-test
   (let [data [["1" "2" "3"] ["4" "5" "6"]]]
     (testing "default separator ','"
-      (is (= data (csv/read-csv "1,2,3\n4,5,6"))))))
+      (is (= data (csv/read-csv "1,2,3\n4,5,6"))))
+
+    (testing "user defined separator '|'"
+      (is (= data (csv/read-csv "1|2|3\n4|5|6" :separator "|"))))))
 
 (defn ^:export run []
   (run-tests))
