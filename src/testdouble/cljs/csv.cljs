@@ -47,5 +47,8 @@
   "Reads data from String in CSV-format."
   {:arglists '([data] [data & options]) :added "0.3.0"}
   [data & options]
-  (map #(str/split % #",")
-       (str/split data #"\n")))
+  (let [{:keys [separator newline] :or {separator "," newline :lf}} options]
+    (if-let [newline-char (get newlines newline)]
+      (->> (str/split data newline-char)
+           (map #(str/split % separator)))
+      (throw (js/Error. newline-error-message)))))
