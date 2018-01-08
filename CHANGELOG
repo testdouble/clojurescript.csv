@@ -1,5 +1,6 @@
 === v0.3.0
 
+* add support for user defined separator in read-csv. This mirrors the existing support in write-csv.
 * Breaking
   * Option :quote is now :quote?
 
