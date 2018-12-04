@@ -1,8 +1,11 @@
 (ns testdouble.cljs.csv
   (:require [clojure.string :as str]))
 
+(defn- escape-quotes [s]
+  (str/replace s "\"" "\"\""))
+
 (defn- wrap-in-quotes [s]
-  (str "\"" s "\""))
+  (str "\"" (escape-quotes s) "\""))
 
 (defn- seperate [data separator quote?]
   (str/join separator
