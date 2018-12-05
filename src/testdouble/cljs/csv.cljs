@@ -60,7 +60,7 @@
                state :in-field
                in-quoted-field false
                field-buffer nil
-               rows nil]
+               rows []]
           (let [last-row-index (- (count rows) 1)]
             (if (< index data-length)
               (let [char (nth data index)
@@ -80,7 +80,13 @@
                                (str field-buffer char)
                                rows)
                         (recur (+ index 1) :in-field false field-buffer rows))
-                      (recur (+ index 1) :in-field true field-buffer rows))
+                      (recur (+ index 1)
+                             :in-field
+                             true
+                             field-buffer
+                             (if (> (count rows) 0)
+                               rows
+                               (conj rows []))))
 
                     (= str-char separator)
                     (if in-quoted-field
@@ -128,7 +134,7 @@
                            (str field-buffer char)
                            (if (> (count rows) 0)
                              rows
-                             (conj (or rows []) []))))
+                             (conj rows []))))
 
                   :end-field
                   (case str-char

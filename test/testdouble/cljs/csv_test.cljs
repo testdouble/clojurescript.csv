@@ -45,7 +45,11 @@
 
     (testing "valid characters in quoted fields"
       (is (= [["a\nb" "c\rd"] ["e,f" "g\"h"]]
-             (csv/read-csv "\"a\nb\",\"c\rd\"\n\"e,f\",\"g\"\"h\""))))))
+             (csv/read-csv "\"a\nb\",\"c\rd\"\n\"e,f\",\"g\"\"h\""))))
+
+    (testing "quoted fields containing only quotes"
+      (is (= [["\"" "\"\""] ["\"\"\"" "\"\"\"\""]]
+             (csv/read-csv "\"\"\"\",\"\"\"\"\"\"\n\"\"\"\"\"\"\"\",\"\"\"\"\"\"\"\"\"\""))))))
 
 (defn ^:export run []
   (run-tests))
