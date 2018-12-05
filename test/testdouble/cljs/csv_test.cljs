@@ -26,6 +26,12 @@
       (is (= "\"a\nb\",\"c\rd\"\n\"e,f\",\"g\"\"h\""
              (csv/write-csv [["a\nb" "c\rd"] ["e,f" "g\"h"]] :quote? true))))
 
+    (testing "fields with spaces"
+      (is (= "a b,c d\ne f,g h"
+             (csv/write-csv [["a b" "c d"] ["e f" "g h"]])))
+      (is (= "\"a b\",\"c d\"\n\"e f\",\"g h\""
+             (csv/write-csv [["a b" "c d"] ["e f" "g h"]] :quote? true))))
+
     (testing "error when newline is not one of :lf OR :cr+lf"
       (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
 
@@ -49,7 +55,11 @@
 
     (testing "quoted fields containing only quotes"
       (is (= [["\"" "\"\""] ["\"\"\"" "\"\"\"\""]]
-             (csv/read-csv "\"\"\"\",\"\"\"\"\"\"\n\"\"\"\"\"\"\"\",\"\"\"\"\"\"\"\"\"\""))))))
+             (csv/read-csv "\"\"\"\",\"\"\"\"\"\"\n\"\"\"\"\"\"\"\",\"\"\"\"\"\"\"\"\"\""))))
+
+    (testing "fields with spaces"
+      (is (= [["a b" "c d"] ["e f" "g h"]]
+             (csv/read-csv "\"a b\",c d\ne f,\"g h\""))))))
 
 (defn ^:export run []
   (run-tests))
