@@ -26,16 +26,12 @@
 
 (defn write-csv
   "Writes data to String in CSV-format.
-
   Accepts the following options:
-
   :separator - field seperator
                (default ,)
-
   :newline   - line seperator
                (accepts :lf or :cr+lf)
                (default :lf)
-
   :quote?    - wrap in quotes
                (default false)"
 
@@ -137,11 +133,14 @@
                              (conj rows []))))
 
                   :end-field
-                  (case str-char
-                    "\""
+                  (cond 
+                    (= str-char "\"")
                     (recur (+ index 1) :in-field true field-buffer rows)
 
-                    (recur (+ index 1) :in-field in-quoted-field str-char rows))
+                    (= str-char separator)
+                    (recur (inc index) :end-field in-quoted-field "" (conj-in rows last-row-index ""))
+
+                    :else (recur (+ index 1) :in-field in-quoted-field str-char rows))
 
                   :end-line
                   (case str-char
@@ -159,3 +158,4 @@
                            (conj (or rows []) [])))))
               (conj-in rows last-row-index field-buffer)))))
       (throw (js/Error. newline-error-message)))))
+
