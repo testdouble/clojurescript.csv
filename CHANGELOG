@@ -1,3 +1,8 @@
+=== v0.4.0
+
+* Bug Fixes
+  * Add RFC 4180 compliance for write-csv (when :quote? true) and read-csv (always)
+
 === v0.3.0
 
 * add support for user defined separator in read-csv. This mirrors the existing support in write-csv.
