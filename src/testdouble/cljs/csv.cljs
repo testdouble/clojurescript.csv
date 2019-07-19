@@ -61,7 +61,7 @@
             (if (< index data-length)
               (let [char (nth data index)
                     next-char (if (< index (- data-length 1))
-                                (nth data (+ index 1))
+                                (nth data (inc index))
                                 nil)
                     str-char (str char)]
                 (case state
@@ -75,8 +75,8 @@
                                true
                                (str field-buffer char)
                                rows)
-                        (recur (+ index 1) :in-field false field-buffer rows))
-                      (recur (+ index 1)
+                        (recur (inc index) :in-field false field-buffer rows))
+                      (recur (inc index)
                              :in-field
                              true
                              field-buffer
@@ -86,12 +86,12 @@
 
                     separator
                     (if in-quoted-field
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :in-field
                              in-quoted-field
                              (str field-buffer char)
                              rows)
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :end-field
                              in-quoted-field
                              ""
@@ -99,12 +99,12 @@
 
                     "\r"
                     (if (and (= newline :cr+lf) (not in-quoted-field))
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :in-field
                              in-quoted-field
                              field-buffer
                              rows)
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :in-field
                              in-quoted-field
                              (str field-buffer char)
@@ -112,18 +112,18 @@
 
                     "\n"
                     (if in-quoted-field
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :in-field
                              in-quoted-field
                              (str field-buffer char)
                              rows)
-                      (recur (+ index 1)
+                      (recur (inc index)
                              :end-line
                              in-quoted-field
                              ""
                              (conj-in rows last-row-index field-buffer)))
 
-                    (recur (+ index 1)
+                    (recur (inc index)
                            :in-field
                            in-quoted-field
                            (str field-buffer char)
@@ -134,7 +134,7 @@
                   :end-field
                   (condp = str-char
                     "\""
-                    (recur (+ index 1) :in-field true field-buffer rows)
+                    (recur (inc index) :in-field true field-buffer rows)
 
                     separator
                     (recur (inc index)
@@ -143,18 +143,18 @@
                            ""
                            (conj-in rows last-row-index ""))
 
-                    (recur (+ index 1) :in-field in-quoted-field str-char rows))
+                    (recur (inc index) :in-field in-quoted-field str-char rows))
 
                   :end-line
                   (case str-char
                     "\""
-                    (recur (+ index 1)
+                    (recur (inc index)
                            :in-field
                            true
                            field-buffer
                            (conj (or rows []) []))
 
-                    (recur (+ index 1)
+                    (recur (inc index)
                            :in-field
                            in-quoted-field
                            (str field-buffer char)
