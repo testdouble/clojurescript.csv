@@ -66,8 +66,8 @@
                     str-char (str char)]
                 (case state
                   :in-field
-                  (cond
-                    (= str-char "\"")
+                  (condp = str-char
+                    "\""
                     (if in-quoted-field
                       (if (= (str next-char) "\"")
                         (recur (+ index 2)
@@ -84,7 +84,7 @@
                                rows
                                (conj rows []))))
 
-                    (= str-char separator)
+                    separator
                     (if in-quoted-field
                       (recur (+ index 1)
                              :in-field
@@ -97,7 +97,7 @@
                              ""
                              (conj-in rows last-row-index field-buffer)))
 
-                    (= str-char "\r")
+                    "\r"
                     (if (and (= newline :cr+lf) (not in-quoted-field))
                       (recur (+ index 1)
                              :in-field
@@ -110,7 +110,7 @@
                              (str field-buffer char)
                              rows))
 
-                    (= str-char "\n")
+                    "\n"
                     (if in-quoted-field
                       (recur (+ index 1)
                              :in-field
@@ -123,7 +123,6 @@
                              ""
                              (conj-in rows last-row-index field-buffer)))
 
-                    :else
                     (recur (+ index 1)
                            :in-field
                            in-quoted-field
@@ -133,14 +132,14 @@
                              (conj rows []))))
 
                   :end-field
-                  (cond 
-                    (= str-char "\"")
+                  (condp = str-char
+                    "\""
                     (recur (+ index 1) :in-field true field-buffer rows)
 
-                    (= str-char separator)
+                    separator
                     (recur (inc index) :end-field in-quoted-field "" (conj-in rows last-row-index ""))
 
-                    :else (recur (+ index 1) :in-field in-quoted-field str-char rows))
+                    (recur (+ index 1) :in-field in-quoted-field str-char rows))
 
                   :end-line
                   (case str-char
