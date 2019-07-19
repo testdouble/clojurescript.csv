@@ -59,7 +59,10 @@
 
     (testing "fields with spaces"
       (is (= [["a b" "c d"] ["e f" "g h"]]
-             (csv/read-csv "\"a b\",c d\ne f,\"g h\""))))))
+             (csv/read-csv "\"a b\",c d\ne f,\"g h\""))))
+
+    (testing "empty fields"
+      (is (= [["a" "b" "c" "d"] ["1" "" "" "d"]] (csv/read-csv "a,b,c,d\n1,\"\",,d"))))))
 
 (defn ^:export run []
   (run-tests))
