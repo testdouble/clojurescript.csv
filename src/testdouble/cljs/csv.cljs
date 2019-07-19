@@ -137,7 +137,11 @@
                     (recur (+ index 1) :in-field true field-buffer rows)
 
                     separator
-                    (recur (inc index) :end-field in-quoted-field "" (conj-in rows last-row-index ""))
+                    (recur (inc index)
+                           :end-field
+                           in-quoted-field
+                           ""
+                           (conj-in rows last-row-index ""))
 
                     (recur (+ index 1) :in-field in-quoted-field str-char rows))
 
