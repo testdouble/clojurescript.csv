@@ -27,9 +27,9 @@
 (defn write-csv
   "Writes data to String in CSV-format.
   Accepts the following options:
-  :separator - field seperator
+  :separator - field separator
                (default ,)
-  :newline   - line seperator
+  :newline   - line separator
                (accepts :lf or :cr+lf)
                (default :lf)
   :quote?    - wrap in quotes
