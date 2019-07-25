@@ -7,13 +7,13 @@
 (defn- wrap-in-quotes [s]
   (str "\"" (escape-quotes s) "\""))
 
-(defn- seperate [data separator quote?]
+(defn- separate [data separator quote?]
   (str/join separator
             (cond->> data
               quote? (map wrap-in-quotes))))
 
 (defn- write-data [data separator newline quote?]
-  (str/join newline (map #(seperate % separator quote?) data)))
+  (str/join newline (map #(separate % separator quote?) data)))
 
 (defn- conj-in [coll index x]
   (assoc coll index (conj (nth coll index) x)))
