@@ -1,3 +1,7 @@
+=== v0.4.3
+
+* Fix typo in write-csv docstring
+
 === v0.4.2
 
 * Clean up code a little, no external changes
