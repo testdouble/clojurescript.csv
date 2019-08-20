@@ -3,9 +3,9 @@
   :url "https://github.com/testdouble/clojurescript.csv"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2511"]]
-  :plugins [[lein-cljsbuild "1.1.0"]]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/clojurescript "1.10.238"]]
+  :plugins [[lein-cljsbuild "1.1.7"]]
   :hooks [leiningen.cljsbuild]
   :cljsbuild {:builds [{:id "whitespace"
                         :source-paths ["src" "test"]
