@@ -1,3 +1,7 @@
+=== v0.4.4
+
+* Fix parsing of new line after an empty field
+
 === v0.4.3
 
 * Fix typo in write-csv docstring
