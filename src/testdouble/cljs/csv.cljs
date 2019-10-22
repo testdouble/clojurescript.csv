@@ -143,6 +143,13 @@
                            ""
                            (conj-in rows last-row-index ""))
 
+                    "\n"
+                    (recur (inc index)
+                           :end-line
+                           in-quoted-field
+                           ""
+                           (conj-in rows last-row-index field-buffer))
+
                     (recur (inc index) :in-field in-quoted-field str-char rows))
 
                   :end-line

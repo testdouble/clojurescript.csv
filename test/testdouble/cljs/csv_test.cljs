@@ -32,6 +32,13 @@
       (is (= "\"a b\",\"c d\"\n\"e f\",\"g h\""
              (csv/write-csv [["a b" "c d"] ["e f" "g h"]] :quote? true))))
 
+    (testing "blank fields at end of row"
+      (is (= "a,b,c\n1,1,1\n2,,\n3,,"
+             (csv/write-csv [["a" "b" "c"]
+                             ["1" "1" "1"]
+                             ["2" "" ""]
+                             ["3" "" ""]]))))
+
     (testing "error when newline is not one of :lf OR :cr+lf"
       (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
 
@@ -62,7 +69,15 @@
              (csv/read-csv "\"a b\",c d\ne f,\"g h\""))))
 
     (testing "empty fields"
-      (is (= [["a" "b" "c" "d"] ["1" "" "" "d"]] (csv/read-csv "a,b,c,d\n1,\"\",,d"))))))
+      (is (= [["a" "b" "c" "d"] ["1" "" "" "d"]]
+             (csv/read-csv "a,b,c,d\n1,\"\",,d"))))
+
+    (testing "blank fields at end of row"
+      (is (= [["a" "b" "c"]
+              ["1" "1" "1"]
+              ["2" "" ""]
+              ["3" "" ""]]
+             (csv/read-csv "a,b,c\n1,1,1\n2,,\n3,,"))))))
 
 (defn ^:export run []
   (run-tests))
