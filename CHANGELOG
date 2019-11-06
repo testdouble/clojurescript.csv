@@ -1,3 +1,8 @@
+=== v0.4.5
+
+* Bug Fixed
+  * Support non-string values in write-csv (contributed by @ephigabay in #15)
+
 === v0.4.4
 
 * Fix parsing of new line after an empty field

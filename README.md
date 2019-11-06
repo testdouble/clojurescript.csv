@@ -7,7 +7,7 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 [Leiningen](https://github.com/technomancy/leiningen/):
 
 ```
-[testdouble/clojurescript.csv "0.4.4"]
+[testdouble/clojurescript.csv "0.4.5"]
 ```
 
 [Maven](http://maven.apache.org/):
@@ -16,7 +16,7 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 <dependency>
   <groupId>testdouble</groupId>
   <artifactId>clojurescript.csv</artifactId>
-  <version>0.4.4</version>
+  <version>0.4.5</version>
 </dependency>
 ```
 
