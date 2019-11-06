@@ -22,8 +22,13 @@
     (testing "quote each field"
       (is (= "\"1,000\",\"2\",\"3\"\n\"4\",\"5,000\",\"6\"" (csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]] :quote? true))))
 
-    (testing "quote non-string fields"
-      (is (= "\"1,000\",\"2\",\"3\"\n\"4\",\"5,000\",\"false\"" (csv/write-csv [["1,000" 2 "3"] ["4" "5,000" false]] :quote? true))))
+    (testing "str non-string fields"
+      (is (= "100,2,\n4,500,false"
+             (csv/write-csv [["100" 2 nil] ["4" "500" false]]))))
+
+    (testing "str and quote non-string fields"
+      (is (= "\"1,000\",\"2\",\"\"\n\"4\",\"5,000\",\"false\""
+             (csv/write-csv [["1,000" 2 nil] ["4" "5,000" false]] :quote? true))))
 
     (testing "valid characters in quoted fields"
       (is (= "\"a\nb\",\"c\rd\"\n\"e,f\",\"g\"\"h\""
