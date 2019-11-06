@@ -10,6 +10,7 @@
 (defn- separate [data separator quote?]
   (str/join separator
             (cond->> data
+              :always (map str)
               quote? (map wrap-in-quotes))))
 
 (defn- write-data [data separator newline quote?]
