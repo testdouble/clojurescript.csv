@@ -22,7 +22,7 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 
 ## Usage
 
-```
+```clojure
 (ns my.domain.core
   (:require [testdouble.cljs.csv :as csv]))
 
