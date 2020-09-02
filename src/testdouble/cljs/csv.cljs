@@ -5,16 +5,23 @@
   (str/replace s "\"" "\"\""))
 
 (defn- wrap-in-quotes [s]
-  (str "\"" (escape-quotes s) "\""))
+  (if (string? s)
+    (str "\"" (escape-quotes s) "\"")
+    s))
 
-(defn- separate [data separator quote?]
+(defn- selective-str [s keep-numbers?]
+  (if (and keep-numbers? (number? s))
+    s
+    (str s)))
+
+(defn- separate [data separator quote? keep-numbers?]
   (str/join separator
             (cond->> data
-              :always (map str)
-              quote? (map wrap-in-quotes))))
+              :always (map #(selective-str % keep-numbers?))
+              quote?  (map wrap-in-quotes))))
 
-(defn- write-data [data separator newline quote?]
-  (str/join newline (map #(separate % separator quote?) data)))
+(defn- write-data [data separator newline quote? keep-numbers?]
+  (str/join newline (map #(separate % separator quote? keep-numbers?) data)))
 
 (defn- conj-in [coll index x]
   (assoc coll index (conj (nth coll index) x)))
@@ -28,22 +35,27 @@
 (defn write-csv
   "Writes data to String in CSV-format.
   Accepts the following options:
-  :separator - field separator
-               (default ,)
-  :newline   - line separator
-               (accepts :lf or :cr+lf)
-               (default :lf)
-  :quote?    - wrap in quotes
-               (default false)"
+  :separator     - field separator
+                   (default ,)
+  :newline       - line separator
+                   (accepts :lf or :cr+lf)
+                   (default :lf)
+  :quote?        - wrap all in quotes
+                   (default false)
+  :keep-numbers? - do not quote numeric
+                   fields
+                   (default false,
+                   used with :quote?)"
 
   {:arglists '([data] [data & options]) :added "0.1.0"}
   [data & options]
-  (let [{:keys [separator newline quote?] :or {separator "," newline :lf quote? false}} options]
+  (let [{:keys [separator newline quote? keep-numbers?] :or {separator "," newline :lf quote? false keep-numbers? false}} options]
     (if-let [newline-char (get newlines newline)]
       (write-data data
                   separator
                   newline-char
-                  quote?)
+                  quote?
+                  keep-numbers?)
       (throw (js/Error. newline-error-message)))))
 
 (defn read-csv

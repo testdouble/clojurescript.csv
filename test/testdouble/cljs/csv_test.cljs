@@ -40,6 +40,21 @@
       (is (= "\"a b\",\"c d\"\n\"e f\",\"g h\""
              (csv/write-csv [["a b" "c d"] ["e f" "g h"]] :quote? true))))
 
+    (testing ":quote? true and :keep-numbers? true"
+      (is (= "1000,2.9,\"true\",\"description, with comma\"\n4,\"false\",\"6,000\",\"prior is quoted number with one comma , thousands delimiter\""
+             (csv/write-csv
+              [[1000 2.9 true "description, with comma"]
+               [4 false "6,000" "prior is quoted number with one comma , thousands delimiter"]]
+              :quote? true :keep-numbers? true))))
+
+    (testing "keep-numbers? true only"
+      ;; expect: no effect.  :keep-numbers? must be used with :quote?
+      (is (= "1000,2.9,true,description, with comma\n4,false,6,000,prior is quoted number with one comma , thousands delimiter"
+             (csv/write-csv
+              [[1000 2.9 true "description, with comma"]
+               [4 false "6,000" "prior is quoted number with one comma , thousands delimiter"]]
+              :keep-numbers? true))))
+
     (testing "blank fields at end of row"
       (is (= "a,b,c\n1,1,1\n2,,\n3,,"
              (csv/write-csv [["a" "b" "c"]
