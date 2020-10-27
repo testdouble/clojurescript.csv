@@ -154,13 +154,20 @@
                     (recur (inc index) :in-field in-quoted-field str-char rows))
 
                   :end-line
-                  (case str-char
+                  (condp = str-char
                     "\""
                     (recur (inc index)
                            :in-field
                            true
                            field-buffer
                            (conj (or rows []) []))
+
+                    separator
+                    (recur (inc index)
+                           :end-field
+                           false
+                           ""
+                           (conj (or rows []) [""]))
 
                     (recur (inc index)
                            :in-field

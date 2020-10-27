@@ -80,6 +80,12 @@
       (is (= [["a" "b" "c" "d"] ["1" "" "" "d"]]
              (csv/read-csv "a,b,c,d\n1,\"\",,d"))))
 
+    (testing "blank fields at beginning of row"
+      (is (= [["a" "b"]
+              ["" "1"]
+              ["" ""]]
+             (csv/read-csv "a,b\n,1\n,"))))
+
     (testing "blank fields at end of row"
       (is (= [["a" "b" "c"]
               ["1" "1" "1"]
