@@ -64,6 +64,21 @@
     (testing "user defined separator '|' and newline ':cr+lf'"
       (is (= data (csv/read-csv "1|2|3\r\n4|5|6" :separator "|" :newline :cr+lf))))
 
+    (testing "lone carriage return within ':cr-lf' newlines"
+      (is (= [["1" "\r2" "3"] ["4" "5" "6"]] (csv/read-csv "1,\r2,3\r\n4,5,6" :newline :cr+lf))))
+
+    (testing "empty data"
+      (is (= [[""]]
+             (csv/read-csv ""))))
+
+    (testing "nearly empty data"
+      (is (= [["a"]]
+             (csv/read-csv "a"))))
+
+    (testing "longer data"
+      (is (= [["one" "two" "three"] ["uno" "dos" "tres"] ["un" "deux" "trois"]]
+             (csv/read-csv "one,two,three\nuno,dos,tres\nun,deux,trois"))))
+
     (testing "valid characters in quoted fields"
       (is (= [["a\nb" "c\rd"] ["e,f" "g\"h"]]
              (csv/read-csv "\"a\nb\",\"c\rd\"\n\"e,f\",\"g\"\"h\""))))
@@ -72,20 +87,44 @@
       (is (= [["\"" "\"\""] ["\"\"\"" "\"\"\"\""]]
              (csv/read-csv "\"\"\"\",\"\"\"\"\"\"\n\"\"\"\"\"\"\"\",\"\"\"\"\"\"\"\"\"\""))))
 
+    (testing "quote in middle of unquoted field"
+      (is (= [["a\"b" "c"]]
+             (csv/read-csv "a\"b,c"))))
+
     (testing "fields with spaces"
       (is (= [["a b" "c d"] ["e f" "g h"]]
              (csv/read-csv "\"a b\",c d\ne f,\"g h\""))))
 
+    (testing "empty header"
+      (is (= [["" "" ""] ["1" "2" "3"]]
+             (csv/read-csv ",,\n1,2,3"))))
+
     (testing "empty fields"
       (is (= [["a" "b" "c" "d"] ["1" "" "" "d"]]
              (csv/read-csv "a,b,c,d\n1,\"\",,d"))))
+
+    (testing "blank fields at beginning of row"
+      (is (= [["a" "b"]
+              ["" "1"]
+              ["" ""]]
+             (csv/read-csv "a,b\n,1\n,"))))
 
     (testing "blank fields at end of row"
       (is (= [["a" "b" "c"]
               ["1" "1" "1"]
               ["2" "" ""]
               ["3" "" ""]]
-             (csv/read-csv "a,b,c\n1,1,1\n2,,\n3,,"))))))
+             (csv/read-csv "a,b,c\n1,1,1\n2,,\n3,,"))))
+
+    (testing "trailing newline"
+      (is (= [["a" "b" "c"] [""]]
+             (csv/read-csv "a,b,c\n"))))
+
+    (testing "no columns"
+      (is (= [[""]
+              ["a b c"]
+              [""]]
+             (csv/read-csv "\na b c\n"))))))
 
 (defn ^:export run []
   (run-tests))
