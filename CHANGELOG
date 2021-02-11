@@ -1,3 +1,11 @@
+=== v0.5.0
+
+* Bug Fixes
+  * Fix handling of trailing new lines (contributed by @mainej in #23)
+
+* Possibly breaking
+  * Now targeting Clojure 1.8 and ClojureScript 1.10.126
+
 === v0.4.5
 
 * Bug Fixed
