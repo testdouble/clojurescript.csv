@@ -67,6 +67,9 @@
     (testing "lone carriage return within ':cr-lf' newlines"
       (is (= [["1" "\r2" "3"] ["4" "5" "6"]] (csv/read-csv "1,\r2,3\r\n4,5,6" :newline :cr+lf))))
 
+    (testing "lone newline within ':cr-lf' newlines"
+      (is (= [["1" "\n2" "3"] ["4" "5" "6"]] (csv/read-csv "1,\n2,3\r\n4,5,6" :newline :cr+lf))))
+
     (testing "empty data"
       (is (= [[""]]
              (csv/read-csv ""))))

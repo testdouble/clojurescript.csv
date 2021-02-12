@@ -100,9 +100,16 @@
         (recur (if in-quoted-field
                  (if (= char \")
                    (if (= (first chars) \")
-                     ;; pair of double quotes: use one and drop the other
+                     ;; pair of double quotes: use one "escaped" quote and drop
+                     ;; the other, staying in quoted field
                      (-> state (-consume) (-advance))
+                     ;; one double quote: end of quoted field
+                     ;; NOTE: we expect that a separator or newline is next, but
+                     ;; don't verify. Therefore, any characters between the
+                     ;; "closing" double quote and the next separator or newline
+                     ;; will be appended to the current field.
                      (-> state (dissoc :in-quoted-field) (-advance)))
+                   ;; regular character in quoted field
                    (-consume state))
                  (cond
                    ;; first char in field is a quote
@@ -118,7 +125,8 @@
                         (= (first chars) \newline))
                    (-> state (-end-row) (-advance) (-advance))
 
-                   (= char \newline)
+                   (and (= char \newline)
+                        (= newline :lf))
                    (-> state (-end-row) (-advance))
 
                    :else
