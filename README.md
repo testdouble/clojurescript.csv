@@ -43,6 +43,10 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 ;;=> ""1,000","2","3"\n"4","5,000","6""
 ```
 
+## Alternatives
+
+There's a CSV parser [included in Google Closure](https://google.github.io/closure-library/api/goog.labs.format.csv.html).
+
 ## Development
 
 Running the tests:
