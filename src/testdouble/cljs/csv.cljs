@@ -7,11 +7,20 @@
 (defn- wrap-in-quotes [s]
   (str "\"" (escape-quotes s) "\""))
 
+(defn- needs-quote? [s separator]
+  (clojure.string/includes? s separator))
+
+(defn- auto-quote [s separator]
+  (if (needs-quote? s separator)
+    (wrap-in-quotes s)
+    s))
+
 (defn- separate [data separator quote?]
   (str/join separator
             (cond->> data
               :always (map str)
-              quote? (map wrap-in-quotes))))
+              quote? (map wrap-in-quotes)
+              (not quote?) (map #(auto-quote % separator)))))
 
 (defn- write-data [data separator newline quote?]
   (str/join newline (map #(separate % separator quote?) data)))

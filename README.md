@@ -7,7 +7,7 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 [Leiningen](https://github.com/technomancy/leiningen/):
 
 ```
-[testdouble/clojurescript.csv "0.5.1"]
+[testdouble/clojurescript.csv "0.6.0"]
 ```
 
 [Maven](http://maven.apache.org/):
@@ -16,7 +16,7 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 <dependency>
   <groupId>testdouble</groupId>
   <artifactId>clojurescript.csv</artifactId>
-  <version>0.5.1</version>
+  <version>0.6.0</version>
 </dependency>
 ```
 
@@ -38,7 +38,11 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 (csv/write-csv [[1 2 3] [4 5 6]] :newline :cr+lf)
 ;;=> "1,2,3\r\n4,5,6"
 
-;; Quote fields
+;; Automatically quote fields that contains the separator
+(csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]])
+;;=> ""1,000",2,3\n4,"5,000",6"
+
+;; Forcefully quote fields
 (csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]] :quote? true)
 ;;=> ""1,000","2","3"\n"4","5,000","6""
 ```
