@@ -8,7 +8,7 @@
   (str "\"" (escape-quotes s) "\""))
 
 (defn- needs-quote? [s separator]
-  (clojure.string/includes? s separator))
+  (str/includes? s separator))
 
 (defn- auto-quote [s separator]
   (if (needs-quote? s separator)
