@@ -38,11 +38,11 @@ A ClojureScript library for reading and writing comma (and other) separated valu
 (csv/write-csv [[1 2 3] [4 5 6]] :newline :cr+lf)
 ;;=> "1,2,3\r\n4,5,6"
 
-;; Automatically quote fields that contains the separator
+;; Automatically quote fields that contain the separator
 (csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]])
 ;;=> ""1,000",2,3\n4,"5,000",6"
 
-;; Forcefully quote fields
+;; Forcefully quote all fields
 (csv/write-csv [["1,000" "2" "3"] ["4" "5,000" "6"]] :quote? true)
 ;;=> ""1,000","2","3"\n"4","5,000","6""
 ```
