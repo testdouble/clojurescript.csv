@@ -48,7 +48,16 @@
                              ["3" "" ""]]))))
 
     (testing "error when newline is not one of :lf OR :cr+lf"
-      (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))))
+      (is (thrown-with-msg? js/Error #":newline" (csv/write-csv data :newline "foo"))))
+
+    (testing "auto quote when quote? is false"
+      (is (= "a,\"b, b\",c\n1,2,\"3,4,5\""
+             (csv/write-csv [["a", "b, b", "c"]
+                             ["1", "2", "3,4,5"]])))
+      (is (= "a|b, b|c\n1|2|\"3|4|5\""
+             (csv/write-csv [["a", "b, b", "c"]
+                             [1, 2, "3|4|5"]]
+                            :separator "|"))))))
 
 (deftest read-csv-test
   (let [data [["1" "2" "3"] ["4" "5" "6"]]]
