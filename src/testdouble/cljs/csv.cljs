@@ -7,23 +7,24 @@
 (defn- wrap-in-quotes [s]
   (str "\"" (escape-quotes s) "\""))
 
-(defn- needs-quote? [s separator]
-  (str/includes? s separator))
+(defn- needs-quote? [s separator newline]
+  (or (str/includes? s separator)
+      (str/includes? s newline)))
 
-(defn- auto-quote [s separator]
-  (if (needs-quote? s separator)
+(defn- auto-quote [s separator newline]
+  (if (needs-quote? s separator newline)
     (wrap-in-quotes s)
     s))
 
-(defn- separate [data separator quote?]
+(defn- separate [data separator newline quote?]
   (str/join separator
             (cond->> data
               :always (map str)
               quote? (map wrap-in-quotes)
-              (not quote?) (map #(auto-quote % separator)))))
+              (not quote?) (map #(auto-quote % separator newline)))))
 
 (defn- write-data [data separator newline quote?]
-  (str/join newline (map #(separate % separator quote?) data)))
+  (str/join newline (map #(separate % separator newline quote?) data)))
 
 (def ^:private newlines
   {:lf "\n" :cr+lf "\r\n"})
