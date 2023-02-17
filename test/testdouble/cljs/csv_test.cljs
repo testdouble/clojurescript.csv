@@ -57,7 +57,10 @@
       (is (= "a|b, b|c\n1|2|\"3|4|5\""
              (csv/write-csv [["a", "b, b", "c"]
                              [1, 2, "3|4|5"]]
-                            :separator "|"))))))
+                            :separator "|")))
+      (is (= "a,\"b\n b\",c\n1,2,\"3\n4\n5\""
+             (csv/write-csv [["a", "b\n b", "c"]
+                             ["1", "2", "3\n4\n5"]]))))))
 
 (deftest read-csv-test
   (let [data [["1" "2" "3"] ["4" "5" "6"]]]
