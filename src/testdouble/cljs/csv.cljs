@@ -9,7 +9,8 @@
 
 (defn- needs-quote? [s separator newline]
   (or (str/includes? s separator)
-      (str/includes? s newline)))
+      (str/includes? s newline)
+      (str/includes? s "\"")))
 
 (defn- auto-quote [s separator newline]
   (if (needs-quote? s separator newline)
