@@ -1,3 +1,9 @@
+=== v0.8.0
+
+* Possibly breaking
+  * `write-csv` now quotes values that contain a quote automatically when `:quote?` is false (contributed by @filipesilva in #31)
+  * Due to above, `write-csv` is now always RFC 4180 compliant
+
 === v0.7.0
 
 * Possibly breaking
