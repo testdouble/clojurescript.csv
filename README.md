@@ -70,10 +70,6 @@ and a
 [Pull Request](https://github.com/testdouble/clojurescript.csv/pulls)
 if you have one.
 
-## Documentation
-
-More documentation can be found on the [wiki](https://github.com/testdouble/clojurescript.csv/wiki).
-
 ## License
 
 Copyright © 2014 Test Double
