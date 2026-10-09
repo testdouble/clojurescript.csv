@@ -1,4 +1,4 @@
-# clojurescript.csv [![Build Status](https://travis-ci.org/testdouble/clojurescript.csv.png?branch=main)](https://travis-ci.org/testdouble/clojurescript.csv) [![Dependency Status](https://www.versioneye.com/user/projects/53d67fe23648f4a793000046/badge.svg)](https://www.versioneye.com/user/projects/53d67fe23648f4a793000046)
+# clojurescript.csv [![Build Status](https://github.com/testdouble/clojurescript.csv/actions/workflows/ci.yml/badge.svg)](https://github.com/testdouble/clojurescript.csv/actions/workflows/ci.yml)
 
 A ClojureScript library for reading and writing comma (and other) separated values.
 
