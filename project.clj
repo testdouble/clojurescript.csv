@@ -22,10 +22,8 @@
                         :compiler {:output-to "target/js/advanced.js"
                                    :optimizations :advanced
                                    :pretty-print false}}]
-              :test-commands {; PhantomJS tests
-                              "phantom-whitespace" ["phantomjs" "phantom/runner.js" "test-resources/html/whitespace.html"]
-                              "phantom-simple" ["phantomjs" "phantom/runner.js" "test-resources/html/simple.html"]
-                              ;; "phantom-advanced" ["phantomjs" "phantom/runner.js" "test-resources/html/advanced.html"]
-                              }}
+              :test-commands {"node-whitespace" ["node" "node/runner.js" "target/js/whitespace.js"]
+                              "node-simple" ["node" "node/runner.js" "target/js/simple.js"]
+                              "node-advanced" ["node" "node/runner.js" "target/js/advanced.js"]}}
   :aliases {"cleantest" ["do" "clean," "test"]
             "release" ["do" "clean," "deploy" "clojars"]})
