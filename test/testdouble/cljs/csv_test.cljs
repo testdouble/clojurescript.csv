@@ -144,5 +144,11 @@
               [""]]
              (csv/read-csv "\na b c\n"))))))
 
+(def ^:private passed? (atom false))
+
+(defmethod t/report [::t/default :end-run-tests] [summary]
+  (reset! passed? (t/successful? summary)))
+
 (defn ^:export run []
-  (run-tests))
+  (run-tests)
+  @passed?)
