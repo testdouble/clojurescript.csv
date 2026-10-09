@@ -30,5 +30,11 @@ jobs:
           key: m2-${{ hashFiles('project.clj') }}
           restore-keys: m2-
 
-      - name: Run tests
-        run: lein cleantest
+      - name: Install dependencies
+        run: lein do deps, cljsbuild deps
+
+      - name: Compile
+        run: lein compile
+
+      - name: Test
+        run: lein test
